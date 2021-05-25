@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
 import './todo.css';
 
-
 const Todo = () => {
   const inputRef = useRef(null);
   const [todoList, setTodoList] = useState([{id: '123', item: 'Wake up'}, { id: '456', item: 'Brush Teeth'}]);
