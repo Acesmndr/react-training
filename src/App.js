@@ -6,6 +6,7 @@ import Card from './components/Card';
 import Timer from './components/Timer';
 import Clock from './components/Clock';
 import React, { useState } from 'react';
+import Todo from './components/Todo';
 
 export const MyThemeContext = React.createContext(null); 
 
@@ -20,7 +21,8 @@ function App() {
           <MyThemeContext.Provider value={{ theme, updateTheme }}>
             {/* <Button type="primary" /> */}
             {/* <Card /> */}
-              <Timer />
+              {/* <Timer /> */}
+              <Todo />
             {/* <Clock /> */}
             {/* <Button type="secondary" />
             <Button type="warning" />
