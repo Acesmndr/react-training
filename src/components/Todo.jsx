@@ -1,14 +1,24 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './todo.css';
 
 const Todo = () => {
   const inputRef = useRef(null);
-  const [todoList, setTodoList] = useState([{id: '123', item: 'Wake up'}, { id: '456', item: 'Brush Teeth'}]);
-  const removeFromList = (id) => {
+  const [todoList, setTodoList] = useState([]);
+  useEffect(() => {
+    const jsonData = fetch('http://localhost:8000/api/todo').then((response) => response.json());
+    jsonData.then((data) => {
+      setTodoList(data.todo);
+    });
+  }, []);
+  const removeFromList = async (id) => {
+    await fetch('http://localhost:8000/api/todo/'+id, { method: 'DELETE' });
     setTodoList(todoList.filter(listItem => listItem.id !== id));
   }
-  const addToList = () => {
-    setTodoList([...todoList, {id: Date.now(), item: inputRef.current.value }]);
+  const addToList = async () => {
+    const item = inputRef.current.value;
+    const response = await fetch('http://localhost:8000/api/todo', { method: 'PUT', body: JSON.stringify({ item: item }) })
+    const data = await response.json();
+    setTodoList([...todoList, data]);
     inputRef.current.value = '';
   }
   const prepareTodolist = (list) => {
